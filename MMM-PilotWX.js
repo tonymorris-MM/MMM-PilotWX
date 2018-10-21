@@ -168,7 +168,7 @@ Module.register("MMM-PilotWX", {
         synopsis.innerHTML =
 			bullet + " &nbsp "
 			+ WISP.station_id + " &nbsp &nbsp "
-			+ WISP.wind_dir_degrees + sym
+			+ padZero(WISP.wind_dir_degrees,3) + sym
 			+ padZero(WISP.wind_speed_kt,2) + "KT" + " &nbsp  &nbsp "
 			+ convert // var for KM or SM //
 			+ WISP.sky_condition[0]["$"].sky_cover
@@ -319,7 +319,7 @@ Module.register("MMM-PilotWX", {
 
 			var windCell = document.createElement("td");
 			windCell.className = "xsmall bright " + Fcolor;
-			windCell.innerHTML = WISP[Pindex].wind_dir_degrees + sym + padZero(WISP[Pindex].wind_speed_kt,2) + "KT";
+			windCell.innerHTML = padZero(WISP[Pindex].wind_dir_degrees,3) + sym + padZero(WISP[Pindex].wind_speed_kt,2) + "KT";
 			row.appendChild(windCell);
 
 			var visCell = document.createElement("td");
