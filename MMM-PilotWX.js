@@ -53,6 +53,12 @@ Module.register("MMM-PilotWX", {
 		 	return t * 9 / 5 + 32;              // convert celcius to fahrenheit
 		 }
 
+    function padZero(num, size) {
+      var s = num+"";
+      while (s.length < size) s = "0" + s;
+      return s;
+    }
+
 		function to_km (d) {
 		 	return d * 1.609344;              // convert SM to Kilometer
 		 }
@@ -150,7 +156,7 @@ Module.register("MMM-PilotWX", {
 			var tempCurr = Math.round(WISP.temp_c);
 			var dewCurr = Math.round(WISP.dewpoint_c);
 		}
-		
+		    
 		if(this.config.time == "Zulu"){
 			var time = moment.utc(WISP.observation_time, "YYYY-MM-DD HH:mm:ss Z").format("[(]HH:mm[Z)]");
 		} else{
@@ -163,7 +169,7 @@ Module.register("MMM-PilotWX", {
 			bullet + " &nbsp "
 			+ WISP.station_id + " &nbsp &nbsp "
 			+ WISP.wind_dir_degrees + sym
-			+ WISP.wind_speed_kt + "KT" + " &nbsp  &nbsp "
+			+ padZero(WISP.wind_speed_kt,2) + "KT" + " &nbsp  &nbsp "
 			+ convert // var for KM or SM //
 			+ WISP.sky_condition[0]["$"].sky_cover
 			+ WISP.sky_condition[0]["$"].cloud_base_ft_agl + " &nbsp &nbsp "
@@ -313,7 +319,7 @@ Module.register("MMM-PilotWX", {
 
 			var windCell = document.createElement("td");
 			windCell.className = "xsmall bright " + Fcolor;
-			windCell.innerHTML = WISP[Pindex].wind_dir_degrees + sym + WISP[Pindex].wind_speed_kt + "KT";
+			windCell.innerHTML = WISP[Pindex].wind_dir_degrees + sym + padZero(WISP[Pindex].wind_speed_kt,2) + "KT";
 			row.appendChild(windCell);
 
 			var visCell = document.createElement("td");
