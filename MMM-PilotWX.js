@@ -169,7 +169,7 @@ Module.register("MMM-PilotWX", {
 			+ WISP.sky_condition[0]["$"].cloud_base_ft_agl + " &nbsp &nbsp "
 			+ tempCurr + "/"
 			+ dewCurr + " &nbsp &nbsp  "
-			+ +(Math.round(WISP.altim_in_hg + "e+2") + "e-2") + "Hg" + " &nbsp &nbsp  "
+      + +(Math.round(33.86389 * WISP.altim_in_hg + "e+1") + "e-1") + "hPa" + " &nbsp &nbsp  "
 			+ time
 			;
 	//		+ moment(WISP.observation_time, "YYYY-MM-DD HH:mm:ss Z").local().format("[(]HH:mm[)]")
@@ -333,7 +333,7 @@ Module.register("MMM-PilotWX", {
 
 			var altimCell = document.createElement("td");
 			altimCell.className = "xsmall bright " + Fcolor;
-			altimCell.innerHTML = +(Math.round(WISP[Pindex].altim_in_hg + "e+2") + "e-2") + "Hg";
+			altimCell.innerHTML = +(Math.round(33.86389 * WISP[Pindex].altim_in_hg + "e+1") + "e-1") + "hPa";
 			row.appendChild(altimCell);
 
 			var timeCell = document.createElement("td");
