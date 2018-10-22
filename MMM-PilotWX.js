@@ -53,10 +53,17 @@ Module.register("MMM-PilotWX", {
 		 	return t * 9 / 5 + 32;              // convert celcius to fahrenheit
 		 }
 
+    function fixSkyCover(c) {
+      if(c == "CLR")
+        return "SKC";
+      else
+        return c;
+    }
+
     function padZero(num, size) {
       if(num == "")
         return"";
-      
+
       var s = num+"";
       while (s.length < size) s = "0" + s;
       return s;
@@ -174,7 +181,7 @@ Module.register("MMM-PilotWX", {
 			+ padZero(WISP.wind_dir_degrees,3) + sym
 			+ padZero(WISP.wind_speed_kt,2) + "KT" + " &nbsp  &nbsp "
 			+ convert // var for KM or SM //
-			+ WISP.sky_condition[0]["$"].sky_cover
+			+ fixSkyCover(WISP.sky_condition[0]["$"].sky_cover)
 			+ padZero(WISP.sky_condition[0]["$"].cloud_base_ft_agl/100,2) + " &nbsp &nbsp "
 			+ padZero(tempCurr,2) + "/"
 			+ padZero(dewCurr,2) + " &nbsp &nbsp  "
@@ -332,7 +339,7 @@ Module.register("MMM-PilotWX", {
 
 			var skycovCell = document.createElement("td");
 			skycovCell.className = "xsmall bright " + Fcolor;
-			skycovCell.innerHTML = WISP[Pindex].sky_condition[0]["$"].sky_cover + padZero(WISP[Pindex].sky_condition[0]["$"].cloud_base_ft_agl/100,3);
+			skycovCell.innerHTML = fixSkyCover(WISP[Pindex].sky_condition[0]["$"].sky_cover) + padZero(WISP[Pindex].sky_condition[0]["$"].cloud_base_ft_agl/100,3);
 			row.appendChild(skycovCell);
 
 			var temperatureCell = document.createElement("td");
