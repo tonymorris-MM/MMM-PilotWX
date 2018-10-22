@@ -55,7 +55,7 @@ Module.register("MMM-PilotWX", {
 
     function fixSkyCover(c) {
       if(c == "CLR")
-        return "SKC";
+        return "NCD";
       else
         return c;
     }
