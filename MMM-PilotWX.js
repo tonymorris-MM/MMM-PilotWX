@@ -54,6 +54,9 @@ Module.register("MMM-PilotWX", {
 		 }
 
     function padZero(num, size) {
+      if(num == "")
+        return"";
+      
       var s = num+"";
       while (s.length < size) s = "0" + s;
       return s;
@@ -172,9 +175,9 @@ Module.register("MMM-PilotWX", {
 			+ padZero(WISP.wind_speed_kt,2) + "KT" + " &nbsp  &nbsp "
 			+ convert // var for KM or SM //
 			+ WISP.sky_condition[0]["$"].sky_cover
-			+ WISP.sky_condition[0]["$"].cloud_base_ft_agl + " &nbsp &nbsp "
-			+ tempCurr + "/"
-			+ dewCurr + " &nbsp &nbsp  "
+			+ padZero(WISP.sky_condition[0]["$"].cloud_base_ft_agl/100,2) + " &nbsp &nbsp "
+			+ padZero(tempCurr,2) + "/"
+			+ padZero(dewCurr,2) + " &nbsp &nbsp  "
       + +(Math.round(33.86389 * WISP.altim_in_hg + "e+1") + "e-1") + "hPa" + " &nbsp &nbsp  "
 			+ time
 			;
@@ -329,12 +332,12 @@ Module.register("MMM-PilotWX", {
 
 			var skycovCell = document.createElement("td");
 			skycovCell.className = "xsmall bright " + Fcolor;
-			skycovCell.innerHTML = WISP[Pindex].sky_condition[0]["$"].sky_cover + WISP[Pindex].sky_condition[0]["$"].cloud_base_ft_agl;
+			skycovCell.innerHTML = WISP[Pindex].sky_condition[0]["$"].sky_cover + padZero(WISP[Pindex].sky_condition[0]["$"].cloud_base_ft_agl/100,3);
 			row.appendChild(skycovCell);
 
 			var temperatureCell = document.createElement("td");
 			temperatureCell.className = "xsmall bright " + Fcolor;
-			temperatureCell.innerHTML = tempCurr + "/" + dewCurr;
+			temperatureCell.innerHTML = padZero(tempCurr,2) + "/" + padZero(dewCurr,2);
 			row.appendChild(temperatureCell);
 
 			var altimCell = document.createElement("td");
